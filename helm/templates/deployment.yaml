@@ -31,17 +31,17 @@ spec:
         - name: GAME_PORT
           value: {{ .Values.env.gamePort | quote }}
         - name: SERVER_SLOTS
-          value: {{ .Values.env.serverSlots }}
+          value: {{ .Values.env.serverSlots | quote }}
         {{- if ne .Values.env.serverPassword "" }}
         - name: SERVER_PASSWORD
-          value: {{ .Values.env.serverPassword }}
+          value: {{ .Values.env.serverPassword | quote }}
         {{- end }}
         - name: PAUSE_EMPTY
-          value: {{ .Values.env.pauseEmpty }}
+          value: {{ .Values.env.pauseEmpty | quote }}
         - name: MAX_LATENCY
-          value: {{ .Values.env.maxLatency }}
+          value: {{ .Values.env.maxLatency | quote }}
         - name: CLIENT_POWER
-          value: {{ .Values.env.clientPower }}
+          value: {{ .Values.env.clientPower | quote }}
         - name: LANGUAGE
           value: {{ .Values.env.language }}
         {{- if ne .Values.env.motd "" }}
@@ -49,9 +49,9 @@ spec:
           value: {{ .Values.env.motd }}
         {{- end }}
         - name: LOGGING
-          value: {{ .Values.env.logging }}
+          value: {{ .Values.env.logging | quote }}
         - name: ZIP_SAVES
-          value: {{ .Values.env.zipSaves }}
+          value: {{ .Values.env.zipSaves | quote }}
         {{- if ne .Values.env.jvmArgs "" }}
         - name: JVM_ARGS
           value: {{ .Values.env.jvmArgs }}
