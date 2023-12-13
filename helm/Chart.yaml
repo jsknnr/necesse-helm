@@ -1,0 +1,13 @@
+apiVersion: v1
+name: necesse-dedicated-server
+version: 1.0.0
+appVersion: public
+description: Necesse dedicated server.
+keywords:
+- game
+- server
+- necesse
+home: https://necessegame.com/
+maintainers:
+  - name: jsknnr
+    url: https://github.com/jsknnr

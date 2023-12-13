@@ -1,0 +1,22 @@
+image: sknnr/necesse-dedicated-server
+imageTag: latest
+# serviceType should be LoadBalancer or NodePort
+serviceType: LoadBalancer
+resources:
+  requests:
+    memory: 8G
+    cpu: 6.0
+volumes:
+  dataPVC:
+    size: 50Gi
+  storageClassName: ""
+env:
+  worldName: Necesse Kubernetes Server
+  gamePort: 14159
+  serverSlots:
+  serverPassword:
+  pauseEmpty:
+  maxLatency:
+  clientPower:
+  langauge:
+  motd:

@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Chart.Name }}-server"
+  labels:
+    app: "{{ .Chart.Name }}-server"
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "{{ .Chart.Name }}-server"
+      release: "{{ .Release.Name }}"
+  template:
+    metadata:
+      labels:
+        app: "{{ .Chart.Name }}-server"
+        release: "{{ .Release.Name }}"
+    spec:
+      containers:
+      - name: "{{ .Chart.Name }}-server"
+        image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+        imagePullPolicy: Always
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        env:
+        - name: WORLD_NAME
+          value: {{ .Values.env.worldName | quote }}
+        - name: GAME_PORT
+          value: {{ .Values.env.gamePort | quote }}
+        {{- if ne .Values.env.serverSlots "" }}
+        - name: SERVER_SLOTS
+          value: {{ .Values.env.serverSlots }}
+        {{- end }}
+        {{- if ne .Values.env.serverPassword "" }}
+        - name: SERVER_PASSWORD
+          value: {{ .Values.env.serverPassword }}
+        {{- end }}
+        {{- if ne .Values.env.pauseEmpty "" }}
+        - name: PAUSE_EMPTY
+          value: {{ .Values.env.pauseEmpty }}
+        {{- end }}
+        {{- if ne .Values.env.maxLatency "" }}
+        - name: MAX_LATENCY
+          value: {{ .Values.env.maxLatency }}
+        {{- end }}
+        {{- if ne .Values.env.clientPower "" }}
+        - name: CLIENT_POWER
+          value: {{ .Values.env.clientPower }}
+        {{- end }}
+        {{- if ne .Values.env.language "" }}
+        - name: LANGUAGE
+          value: {{ .Values.env.language }}
+        {{- end }}
+        {{- if ne .Values.env.motd "" }}
+        - name: MOTD
+          value: {{ .Values.env.motd }}
+        {{- end }}
+        ports:
+        - name: game-port
+          containerPort: {{ .Values.env.gamePort | int }}
+          protocol: UDP
+        volumeMounts:
+        - name: data
+          mountPath: /home/steam/.config
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: "{{ .Chart.Name }}-data"
