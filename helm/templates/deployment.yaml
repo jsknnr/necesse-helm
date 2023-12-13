@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ .Chart.Name }}-server"
+  name: "{{ .Chart.Name }}"
   labels:
-    app: "{{ .Chart.Name }}-server"
+    app: "{{ .Chart.Name }}"
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
@@ -11,16 +11,16 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "{{ .Chart.Name }}-server"
+      app: "{{ .Chart.Name }}"
       release: "{{ .Release.Name }}"
   template:
     metadata:
       labels:
-        app: "{{ .Chart.Name }}-server"
+        app: "{{ .Chart.Name }}"
         release: "{{ .Release.Name }}"
     spec:
       containers:
-      - name: "{{ .Chart.Name }}-server"
+      - name: "{{ .Chart.Name }}"
         image: "{{ .Values.image }}:{{ .Values.imageTag }}"
         imagePullPolicy: Always
         resources:
