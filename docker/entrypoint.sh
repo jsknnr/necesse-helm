@@ -57,7 +57,6 @@ if [ -n "$ZIP_SAVES" ]; then
 fi
 
 # Launch Necesse server
-java "$JVM_ARGS" \ 
-  -jar "$NECESSE_PATH"/Server.jar \
+java -jar "$NECESSE_PATH"/Server.jar \
   -nogui \
   "${LAUNCH_ARGS}"
