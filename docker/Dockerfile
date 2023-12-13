@@ -4,6 +4,7 @@ ENV DEBIAN_FRONTEND "noninteractive"
 ENV NECESSE_PATH "/home/steam/necesse"
 ENV STEAMCMD_PATH "/home/steam/steamcmd"
 ENV PERSISTENT_PATH "/home/steam/.config"
+ENV JVM_ARGS ""
 
 RUN groupadd -g 1000 steam \
     && useradd -g 1000 -u 1000 -m steam \

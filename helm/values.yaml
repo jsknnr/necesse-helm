@@ -13,10 +13,13 @@ volumes:
 env:
   worldName: Necesse Kubernetes Server
   gamePort: 14159
-  serverSlots:
-  serverPassword:
-  pauseEmpty:
-  maxLatency:
-  clientPower:
-  langauge:
-  motd:
+  serverSlots: 10
+  serverPassword: ""
+  pauseEmpty: 0
+  maxLatency: 30
+  clientPower: 0
+  langauge: en
+  motd: ""
+  logging: 1
+  zipSaves: 1
+  jvmArgs: ""

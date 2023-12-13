@@ -1,50 +1,63 @@
 #!/bin/bash
-# Set server config path
-SERVER_CONFIG=/home/steam/.config/Necesse/cfg/server.cfg
-
 # Update/install Necesse
 "$STEAMCMD_PATH"/steamcmd.sh +force_install_dir "$NECESSE_PATH" +login anonymous +app_update 1169370 validate +quit
 
-#Check required arguments
+# Build launch arguments
+LAUNCH_ARGS=""
 if [ -z "$WORLD_NAME" ]; then
     echo "ERROR: WORLD_NAME not set"
     exit 1
-fi
+else
+    LAUNCH_ARGS="${LAUNCH_ARGS} -world ${WORLD_NAME}"
+fi  
 
 if [ -z "$GAME_PORT" ]; then
     echo "ERROR: GAME_PORT net set"
     exit 1
+else
+    LAUNCH_ARGS="${LAUNCH_ARGS} -port ${GAME_PORT}"
 fi
 
-# Update server configuration
-sed -i "s/port = [0-9]\+/port = $GAME_PORT/" "$SERVER_CONFIG"
+if [ -z "$SERVER_PASSWORD" ]; then
+    echo "WARN: SERVER_PASSWORD not set, server will not require a password to join"
+else
+    LAUNCH_ARGS="${LAUNCH_ARGS} -password ${SERVER_PASSWORD}"
+fi
 
 if [ -n "$SERVER_SLOTS" ]; then
-    sed -i "s/slots = [0-9]\+/slots = $SERVER_SLOTS/" "$SERVER_CONFIG"
+    LAUNCH_ARGS="${LAUNCH_ARGS} -slots ${SERVER_SLOTS}"
 fi
 
-if [ -n "$SERVER_PASSWORD" ]; then
-    sed -i "s/password = \".*\"/password = $SERVER_PASSWORD/" "$SERVER_CONFIG"
-
 if [ -n "$PAUSE_EMPTY" ]; then
-    sed -i "s/pauseWhenEmpty = .*$/pauseWhenEmpty = $PAUSE_EMPTY,/" "$SERVER_CONFIG"
+    LAUNCH_ARGS="${LAUNCH_ARGS} -pausewhenempty ${PAUSE_EMPTY}"
 fi
 
 if [ -n "$MAX_LATENCY" ]; then
-    sed -i "s/maxClientLatencySeconds = [0-9]\+/maxClientLatencySeconds = $MAX_LATENCY/" "$SERVER_CONFIG"
+    LAUNCH_ARGS="${LAUNCH_ARGS} -maxclientlatencyseconds ${MAX_LATENCY}"
 fi
 
-if [ -n "$CLIENT_POWER "]; then
-    sed -i "s/giveClientsPower = .*$/giveClientsPower = $CLIENT_POWER,/" "$SERVER_CONFIG"
+if [ -n "$CLIENT_POWER" ]; then
+    LAUNCH_ARGS="${LAUNCH_ARGS} -giveclientspower ${CLIENT_POWER}"
 fi
 
 if [ -n "$LANGUAGE" ]; then
-    sed -i "s/language = .*/language = $LANGUAGE,/" "$SERVER_CONFIG"
+    LAUNCH_ARGS="${LAUNCH_ARGS} -language ${LANGUAGE}"
 fi
 
 if [ -n "$MOTD" ]; then
-    sed -i "s/MOTD = .*$/MOTD = \"$MOTD\"/" "$SERVER_CONFIG"
+    LAUNCH_ARGS="${LAUNCH_ARGS} -motd ${MOTD}"
+fi
+
+if [ -n "$LOGGING" ]; then
+    LAUNCH_ARGS="${LAUNCH_ARGS} -logging ${LOGGING}"
+fi
+
+if [ -n "$ZIP_SAVES" ]; then
+    LAUNCH_ARGS="${LAUNCH_ARGS} -zipsaves ${ZIP_SAVES}"
 fi
 
 # Launch Necesse server
-java -jar "$NECESSE_PATH"/Server.jar -nogui -world "$WORLD_NAME"
+java "$JVM_ARGS" \ 
+  -jar "$NECESSE_PATH"/Server.jar \
+  -nogui \
+  "${LAUNCH_ARGS}"

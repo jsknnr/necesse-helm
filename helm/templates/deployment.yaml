@@ -30,33 +30,31 @@ spec:
           value: {{ .Values.env.worldName | quote }}
         - name: GAME_PORT
           value: {{ .Values.env.gamePort | quote }}
-        {{- if ne .Values.env.serverSlots "" }}
         - name: SERVER_SLOTS
           value: {{ .Values.env.serverSlots }}
-        {{- end }}
         {{- if ne .Values.env.serverPassword "" }}
         - name: SERVER_PASSWORD
           value: {{ .Values.env.serverPassword }}
         {{- end }}
-        {{- if ne .Values.env.pauseEmpty "" }}
         - name: PAUSE_EMPTY
           value: {{ .Values.env.pauseEmpty }}
-        {{- end }}
-        {{- if ne .Values.env.maxLatency "" }}
         - name: MAX_LATENCY
           value: {{ .Values.env.maxLatency }}
-        {{- end }}
-        {{- if ne .Values.env.clientPower "" }}
         - name: CLIENT_POWER
           value: {{ .Values.env.clientPower }}
-        {{- end }}
-        {{- if ne .Values.env.language "" }}
         - name: LANGUAGE
           value: {{ .Values.env.language }}
-        {{- end }}
         {{- if ne .Values.env.motd "" }}
         - name: MOTD
           value: {{ .Values.env.motd }}
+        {{- end }}
+        - name: LOGGING
+          value: {{ .Values.env.logging }}
+        - name: ZIP_SAVES
+          value: {{ .Values.env.zipSaves }}
+        {{- if ne .Values.env.jvmArgs "" }}
+        - name: JVM_ARGS
+          value: {{ .Values.env.jvmArgs }}
         {{- end }}
         ports:
         - name: game-port

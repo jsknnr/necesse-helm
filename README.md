@@ -23,11 +23,13 @@ The processes within the container do **NOT** run as root. Everything runs as th
 | GAME_PORT | The port the server will listen on | 14159 | True |
 | SERVER_SLOTS | Max number of players | 10 | False |
 | SERVER_PASSWORD | The password for joining the server. Leave empty for no password | None | False |
-| PAUSE_EMPTY | Pause the server when no one is connected | True | False |
+| PAUSE_EMPTY | Pause the server when no one is connected (0/1=true/false) | 0 | False |
 | MAX_LATENCY | Maximum amount of latency for connected player in seconds | 30 | False |
-| CLIENT_POWER |  If true, clients will have much more power over what hits them, their position etc | True | False |
+| CLIENT_POWER |  If true, clients will have much more power over what hits them, their position etc (0/1=true/false) | 0 | False |
 | LANGUAGE | Langauge for server | en | False |
 | MOTD | Server message of the day | None | False |
+| LOGGING | If true, will create log files for each server start (0/1=true/false) | 1 | False |
+| ZIP_SAVES | If true, will create new saves uncompressed (0/1=true/false) | 1 | False |
 
 ### Docker
 
@@ -43,11 +45,13 @@ docker run \
   --env=WORLD_NAME=Super-Cool-World \
   --env=SERVER_SLOTS=10 \
   --env=SERVER_PASSWORD="ChangeThisPlease" \
-  --env=PAUSE_EMPTY=true \
+  --env=PAUSE_EMPTY=0 \
   --env=MAX_LATENCY=30 \
-  --env=CLIENT_POWER=true \
+  --env=CLIENT_POWER=0 \
   --env=LANGUAGE=en \
   --env=GAME_PORT=14159 \
+  --env=LOGGING=1 \
+  --env=ZIP_SAVES=1 \
   --env=MOTD="Welcome to my Necesse Server" \
   sknnr/necesse-dedicated-server:latest
 ```
