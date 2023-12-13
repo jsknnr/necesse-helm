@@ -11,7 +11,7 @@ on:
 jobs:
   tag_repo:
     name: "Add New Tag to Repo"
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: "GitHub Tag"
@@ -22,7 +22,7 @@ jobs:
           create_annotated_tag: true
   build_and_push_image:
     name: "Build and Push a New Image"
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     needs:
       - tag_repo
     steps:
