@@ -1,4 +1,6 @@
 # necesse-helm
+[![DockerHub](https://img.shields.io/badge/Docker_Hub-blue)](https://hub.docker.com/r/sknnr/necesse-dedicated-server)<br>
+
 Dedicated containerized server for running Necesse. Optionally includes helm chart for running in Kubernetes.
 
 **Disclaimer:** This is not an official image. No support, implied or otherwise is offered to any end user by the author or anyone else. Feel free to do what you please with the contents of this repo. Do good.
@@ -49,6 +51,8 @@ docker run \
   --env=MOTD="Welcome to my Necesse Server" \
   sknnr/necesse-dedicated-server:latest
 ```
+
+Where ever you create the `necesse-persistent-data` directory is where the world save is going to go. If you delete that directory you will lose your save. That directory will be mounted into the container.
 
 ### Kubernetes
 
