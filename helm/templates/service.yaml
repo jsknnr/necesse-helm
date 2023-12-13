@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: "{{ .Chart.Name }}-service"
   labels:
-    app: "{{ .Chart.Name }}-server"
+    app: "{{ .Chart.Name }}"
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
@@ -23,4 +23,4 @@ spec:
     protocol: UDP
   {{- end }}
   selector:
-    app: "{{ .Chart.Name }}-server"
+    app: "{{ .Chart.Name }}"
